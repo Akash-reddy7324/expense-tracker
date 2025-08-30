@@ -1,12 +1,21 @@
 "use client";
 import { Doughnut } from "react-chartjs-2";
-import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
+import {
+  Chart as ChartJS,
+  ArcElement,
+  Tooltip,
+  Legend,
+  ChartOptions,
+  ChartData,
+  Plugin,
+} from "chart.js";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 export default function CategoryDonut({ byCategory }: { byCategory: Record<string, number> }) {
   const labels = Object.keys(byCategory);
   const values = Object.values(byCategory);
+  const total = values.reduce((a, b) => a + b, 0);
 
   const palette: Record<string, string> = {
     Food: "#d62728",          // red
@@ -19,7 +28,7 @@ export default function CategoryDonut({ byCategory }: { byCategory: Record<strin
     Other: "#7f7f7f",         // gray
   };
 
-  const data = {
+  const data: ChartData<"doughnut"> = {
     labels,
     datasets: [
       {
@@ -31,19 +40,19 @@ export default function CategoryDonut({ byCategory }: { byCategory: Record<strin
     ],
   };
 
-  const options = {
+  const options: ChartOptions<"doughnut"> = {
     responsive: true,
     maintainAspectRatio: false,
     cutout: "70%",
     plugins: {
       legend: {
-        position: "top" as const,
+        position: "top",
         labels: {
           usePointStyle: true,
           color: "#f3f4f6", // light gray
           font: {
             size: 14,
-            weight: "500",
+            weight: "bold",
           },
         },
       },
@@ -57,10 +66,28 @@ export default function CategoryDonut({ byCategory }: { byCategory: Record<strin
     },
   };
 
+  // ✅ Plugin to render total inside donut
+  const centerText: Plugin<"doughnut"> = {
+    id: "centerText",
+    afterDraw(chart) {
+      const { width } = chart;
+      const { height } = chart;
+      const ctx = chart.ctx;
+
+      ctx.save();
+      ctx.font = "bold 16px sans-serif";
+      ctx.fillStyle = "#f3f4f6"; // light gray text
+      ctx.textAlign = "center";
+      ctx.textBaseline = "middle";
+      ctx.fillText(`₹${total.toFixed(0)}`, width / 2, height / 2);
+      ctx.restore();
+    },
+  };
+
   return (
     <div className="max-w-sm mx-auto p-4 bg-gray-900 rounded-lg">
       <div style={{ height: 300, width: 300 }}>
-        <Doughnut data={data} options={options} />
+        <Doughnut data={data} options={options} plugins={[centerText]} />
       </div>
     </div>
   );
