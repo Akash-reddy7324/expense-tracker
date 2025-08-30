@@ -1,6 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  experimental: { typedRoutes: true },
+  output: "export",     // ✅ replaces `next export`
+  typedRoutes: true     // ✅ no longer inside experimental
 };
 
-module.exports = nextConfig;
+export default nextConfig;   // ✅ use ESM (Next.js 15 standard)
