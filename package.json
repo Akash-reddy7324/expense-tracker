@@ -4,13 +4,10 @@
   "version": "0.1.0",
   "scripts": {
     "dev": "next dev --turbopack",
-    "clean": "rimraf .next out",
-    "build": "npm run clean && next build",  
+    "clean": "rimraf .next",
+    "build": "npm run clean && next build",
     "start": "next start",
-    "lint": "eslint .",
-    "functions:serve": "cd functions && npm run serve",
-    "functions:deploy": "cd functions && npm run deploy",
-    "deploy": "npm run build && firebase deploy"
+    "lint": "eslint ."
   },
   "dependencies": {
     "chart.js": "4.4.3",

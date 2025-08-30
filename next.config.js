@@ -1,7 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: "export",     // ✅ replaces `next export`
-  typedRoutes: true     // ✅ no longer inside experimental
+  typedRoutes: true   // ✅ modern typed routes (no experimental flag)
 };
 
-export default nextConfig;   // ✅ use ESM (Next.js 15 standard)
+export default nextConfig;   // ✅ ESM export for Next.js 15

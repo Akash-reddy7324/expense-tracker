@@ -2,6 +2,6 @@
   "/_not-found/page": "app/_not-found/page.js",
   "/api/export/csv/route": "app/api/export/csv/route.js",
   "/(app)/dashboard/page": "app/(app)/dashboard/page.js",
-  "/login/page": "app/login/page.js",
-  "/(app)/expenses/page": "app/(app)/expenses/page.js"
+  "/(app)/expenses/page": "app/(app)/expenses/page.js",
+  "/login/page": "app/login/page.js"
 }
