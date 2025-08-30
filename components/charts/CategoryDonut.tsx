@@ -8,7 +8,7 @@ export default function CategoryDonut({ byCategory }: { byCategory: Record<strin
   const labels = Object.keys(byCategory);
   const values = Object.values(byCategory);
 
-  const palette = {
+  const palette: Record<string, string> = {
     Food: "#d62728",          // red
     Travel: "#1f77b4",        // blue
     Shopping: "#ff7f0e",      // orange
@@ -24,7 +24,7 @@ export default function CategoryDonut({ byCategory }: { byCategory: Record<strin
     datasets: [
       {
         data: values,
-        backgroundColor: labels.map((l) => palette[l] || "#9ca3af"),
+        backgroundColor: labels.map((l) => palette[l] ?? "#9ca3af"),
         borderColor: "#1f2937", // gray-800 border to blend with dark bg
         borderWidth: 2,
       },
@@ -40,7 +40,7 @@ export default function CategoryDonut({ byCategory }: { byCategory: Record<strin
         position: "top" as const,
         labels: {
           usePointStyle: true,
-          color: "#f3f4f6", // light gray (gray-100)
+          color: "#f3f4f6", // light gray
           font: {
             size: 14,
             weight: "500",
@@ -49,7 +49,7 @@ export default function CategoryDonut({ byCategory }: { byCategory: Record<strin
       },
       tooltip: {
         bodyColor: "#f9fafb", // white text
-        titleColor: "#f9fafb", // white title
+        titleColor: "#f9fafb",
         backgroundColor: "#111827", // dark tooltip bg
         borderColor: "#374151", // gray-700 border
         borderWidth: 1,
