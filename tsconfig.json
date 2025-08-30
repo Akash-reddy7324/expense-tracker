@@ -1,44 +1,32 @@
 {
   "compilerOptions": {
-    "target": "ES2021",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "es2021"
-    ],
-    "types": [
-      "node"
-    ],
+    "target": "ES2022",                       // modern JS output
+    "lib": ["dom", "dom.iterable", "es2022"], // keep browser + ES libs
     "allowJs": false,
-    "skipLibCheck": true,
-    "strict": true,
-    "noEmit": true,
+    "skipLibCheck": true,                     // faster builds, safe for Next.js
+    "strict": true,                           // best practice for type safety
+    "noEmit": true,                           // Next.js handles output
     "module": "esnext",
-    "moduleResolution": "bundler",
+    "moduleResolution": "bundler",            // optimized for Next.js 15
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "jsx": "preserve",
-    "baseUrl": ".",
-    "paths": {
-      "@/*": [
-        "./*"
-      ]
-    },
+    "jsx": "preserve",                        // let Next.js handle JSX
     "incremental": true,
     "esModuleInterop": true,
-    "plugins": [
-      {
-        "name": "next"
-      }
-    ]
+
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./*"]                          // nice import aliases
+    },
+
+    "types": ["node", "react"],               // include Node + React globals
+    "plugins": [{ "name": "next" }]           // Next.js TS plugin
   },
   "include": [
-    "next-env.d.ts",
+    "next-env.d.ts",                          // required by Next.js
     "**/*.ts",
     "**/*.tsx",
-    ".next/types/**/*.ts"
+    ".next/types/**/*.ts"                     // typedRoutes support
   ],
-  "exclude": [
-    "node_modules"
-  ]
+  "exclude": ["node_modules"]
 }
