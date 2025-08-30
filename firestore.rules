@@ -1,0 +1,23 @@
+// Firestore Security Rules
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{db}/documents {
+    function isSignedIn() { return request.auth != null; }
+    function isOwner(uid) { return isSignedIn() && request.auth.uid == uid; }
+
+    match /users/{uid} {
+      allow read, write: if isOwner(uid);
+    }
+    match /expenses/{uid}/items/{docId} {
+      allow create: if isOwner(uid) && request.resource.data.userId == uid;
+      allow read, update, delete: if isOwner(uid) && resource.data.userId == uid;
+    }
+    match /insights/{uid}/{sub=**} {
+      allow read: if isOwner(uid);
+      allow write: if false; // only via Functions
+    }
+    match /budgets/{uid}/{sub=**} {
+      allow read, write: if isOwner(uid);
+    }
+  }
+}
